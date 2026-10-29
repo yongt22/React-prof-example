@@ -1,3 +1,5 @@
+import VotingList from "./VotingList";
+
 export default function IndexPage() {
   console.log("Hello from React!");
 
@@ -9,6 +11,12 @@ export default function IndexPage() {
       <h1>Index Page</h1>
       <section>
         <p>This is the index page of the React application!!</p>
+      </section>
+      <section>
+        <h2>
+          voting
+        </h2>        
+        <VotingList />
       </section>
     </>
   );
