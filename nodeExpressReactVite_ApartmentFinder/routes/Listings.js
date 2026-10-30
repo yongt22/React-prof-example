@@ -19,12 +19,42 @@ router.get("/listings", (req, res) => {
   let query = req.query.q;
 
   if (query) {
-    query = query.toString().toLocaleLowerCase();
+    query = query.toString().toLowerCase();
 
     return res.json(
-      listings.filter((l) => l.title.toLocaleLowerCase().includes(query))
+      listings.filter((l) =>
+        l.title.toLowerCase().includes(query)
+      )
     );
-  } else res.json(listings);
+  } else {
+    res.json(listings);
+  }
+});
+
+// POST /listings/create - Create a new listing
+router.post("/listings/create", (req, res) => {
+  console.log("POST /api/listings/create called", req.body);
+
+  const { title, price } = req.body;
+
+  if (!title || !price) {
+    return res.status(400).json({
+      error: "Title and price are required",
+    });
+  }
+
+  const newListing = {
+    id: listings.length + 1,
+    title,
+    price,
+  };
+
+  listings.push(newListing);
+
+  res.status(201).json({
+    msg: "New listing created",
+    data: newListing,
+  });
 });
 
 export default router;
